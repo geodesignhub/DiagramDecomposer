@@ -7,5 +7,5 @@ gunicorn>=19.6.0
 itsdangerous>=0.24
 requests>=2.9.1
 shapely==1.5.9
-rtree==0.4.2
+rtree==0.5
 cligj>=0.4
