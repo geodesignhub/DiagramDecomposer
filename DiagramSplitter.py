@@ -175,8 +175,13 @@ if __name__ == "__main__":
 	print json.dumps(tenpercentfeats)
 	print json.dumps(twentypercentfeats)
 	print json.dumps(seventypercentfeats)
+	# opdata = [{'gj':tenpercentfeats ,'desc':"10% " +desc},{'gj':twentypercentfeats ,'desc':"20% " +desc},{'gj':seventypercentfeats ,'desc':"70% " +desc},]
+	# alluploadmessages = []
+	# for curopdata in opdata:
+	# 	print curopdata['gj']
+	# 	upload = myAPIHelper.post_as_diagram(geoms = json.dumps(curopdata['gj']), projectorpolicy= projectorpolicy,featuretype = 'polygon', description= curopdata['desc'], sysid = sysid)
+	# 	alluploadmessages.append(json.loads(upload.text))
 
-	print projectorpolicy
 	# tenpercentfeats={"type":"FeatureCollection", "features":[]}
 	# j = json.loads(shapelyHelper.export_to_JSON(finalPolygons))
 	# cf['type']= 'Feature'
