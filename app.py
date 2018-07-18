@@ -1,6 +1,7 @@
 from flask import Flask, url_for
 from functools import wraps
 from flask import request, Response
+from flask import render_template
 import requests, json, GeodesignHub
 import shapelyHelper
 import logging, config
@@ -49,7 +50,7 @@ class GridGenerator():
 	def generateGrid(self, bounds):
 		# xmin,ymin,xmax,ymax = bounds
 		minx,miny,maxx,maxy = bounds
-		# minx,maxx,miny,maxy = 448262.080078, 450360.750122, 6262492.020081, 6262938.950073
+		
 		dx = 0.01
 		dy = 0.01
 
@@ -114,14 +115,14 @@ class DiagramDecomposer():
 
 app = Flask(__name__)
 
-@app.route('/', methods = ['GET'])
+@app.route('/process/', methods = ['GET'])
 def api_root():
 	''' This is the root of the webservice, upon successful authentication a text will be displayed in the browser '''
 	try:
 		projectid = request.args.get('projectid')
 		diagramid = request.args.get('diagramid')
 		apitoken = request.args.get('apitoken')
-	except KeyError as e:
+	except KeyError as ke:
 		msg = json.dumps({"message":"Could not parse Projectid, Diagram ID or API Token ID. One or more of these were not found in your JSON request."})
 		return Response(msg, status=400, mimetype='application/json')
 
@@ -135,7 +136,7 @@ def api_root():
 		try:
 			assert r.status_code == 200
 		except AssertionError as ae:
-			print "Invalid reponse %s" % ae
+			print("Invalid reponse %s" % ae)
 		else:
 			op = json.loads(r.text)
 			diaggeoms = op['geojson']
@@ -146,7 +147,7 @@ def api_root():
 			grid, allbounds = myGridGenerator.generateGrid(bounds)
 
 		gridRTree = Rtree()
-		for boundsid, bounds in allbounds.iteritems():
+		for boundsid, bounds in allbounds.items():
 			gridRTree.insert(boundsid, bounds)
 
 		choppedgeomsandareas = []
@@ -192,9 +193,9 @@ def api_root():
 		opdata = [{'gj':tenpercentfeats ,'desc':"10% " +desc},{'gj':twentypercentfeats ,'desc':"20% " +desc},{'gj':seventypercentfeats ,'desc':"70% " +desc},]
 		alluploadmessages = []
 		for curopdata in opdata:
-			# print curopdata['gj']
-			upload = myAPIHelper.post_as_diagram(geoms = json.dumps(curopdata['gj']), projectorpolicy= projectorpolicy,featuretype = 'polygon', description= curopdata['desc'], sysid = sysid)
-			alluploadmessages.append(json.loads(upload.text))
+			print json.dumps(curopdata['gj'])
+			# upload = myAPIHelper.post_as_diagram(geoms = json.dumps(curopdata['gj']), projectorpolicy= projectorpolicy,featuretype = 'polygon', description= curopdata['desc'], sysid = sysid)
+			# alluploadmessages.append(json.loads(upload.text))
 
 		msg = json.dumps({"message":"Diagrams have been uploaded","uploadstatus":alluploadmessages})
 		return Response(msg, status=400, mimetype='application/json')
