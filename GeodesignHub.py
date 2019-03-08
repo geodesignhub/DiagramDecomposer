@@ -85,6 +85,13 @@ class GeodesignHubClient():
 		r = requests.get(securl, headers=headers)
 		return r
 
+	def get_synthesis_diagrams(self, teamid, synthesisid):
+		assert type(teamid) is int, "Team id is not a integer: %r" % teamid
+		securl = self.securl + 'projects'+ '/' + self.projectid + '/cteams/'+ str(teamid) +'/' + str(synthesisid) + '/diagrams/'
+		headers = {'Authorization': 'Token '+ self.token}
+		r = requests.get(securl, headers=headers)
+		return r
+
 	def get_changeteam_members(self, teamid):
 		''' Return all the change teams for that project. '''
 		assert type(teamid) is int, "Team id is not a integer: %r" % teamid
@@ -101,11 +108,11 @@ class GeodesignHubClient():
 		r = requests.get(securl, headers=headers)
 		return r
 
-	def post_as_diagram(self, geoms, projectorpolicy, featuretype, description, sysid ):
+	def post_as_diagram(self, geoms, projectorpolicy, featuretype, description, sysid, fundingtype):
 		''' Create a requests object with correct headers and creds. '''
 		securl = self.securl+ 'projects'+ '/' + self.projectid + '/' +'systems'+'/'+ str(sysid) + '/'+ 'add' +'/' + projectorpolicy +'/'
 		headers = {'Authorization': 'Token '+ self.token, 'content-type': 'application/json'}
-		postdata = {'geometry':geoms, 'description':description, 'featuretype':featuretype}
+		postdata = {'geometry':geoms, 'description':description, 'featuretype':featuretype, 'fundingtype':fundingtype}
 		r = requests.post(securl, headers= headers, data = json.dumps(postdata))
 		return r
 

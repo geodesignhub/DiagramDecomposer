@@ -143,6 +143,7 @@ def api_root():
 			sysid = op['sysid']
 			desc = op['description']
 			projectorpolicy = op['type']
+			fundingtype = 'o'
 			geoms, bounds = myDiagramDecomposer.processGeoms(diaggeoms)
 			grid, allbounds = myGridGenerator.generateGrid(bounds)
 
@@ -190,7 +191,7 @@ def api_root():
 				seventypercentfeats['features'].append(cf)
 			a += float(cursortedgeom['area'])
 
-		opdata = [{'gj':tenpercentfeats ,'desc':"10% " +desc},{'gj':twentypercentfeats ,'desc':"20% " +desc},{'gj':seventypercentfeats ,'desc':"70% " +desc},]
+		opdata = [{'gj':tenpercentfeats ,'desc':"10% " +desc},{'gj':twentypercentfeats ,'desc':"20% " +desc},{'gj':seventypercentfeats ,'desc':"70% " +desc, "fundingtype":fundingtype}]
 		alluploadmessages = []
 		for curopdata in opdata:
 			print(json.dumps(curopdata['gj']))
