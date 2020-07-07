@@ -117,7 +117,7 @@ if __name__ == "__main__":
 	try:
 		assert r.status_code == 200
 	except AssertionError as ae:
-		print "Invalid reponse %s" % ae
+		print("Invalid reponse %s" % ae)
 	else:
 		op = json.loads(r.text)
 		diaggeoms = op['geojson']
@@ -172,9 +172,9 @@ if __name__ == "__main__":
 		a += float(cursortedgeom['area'])
 
 
-	print json.dumps(tenpercentfeats)
-	print json.dumps(twentypercentfeats)
-	print json.dumps(seventypercentfeats)
+	print(json.dumps(tenpercentfeats))
+	print(json.dumps(twentypercentfeats))
+	print(json.dumps(seventypercentfeats))
 	# opdata = [{'gj':tenpercentfeats ,'desc':"10% " +desc},{'gj':twentypercentfeats ,'desc':"20% " +desc},{'gj':seventypercentfeats ,'desc':"70% " +desc},]
 	# alluploadmessages = []
 	# for curopdata in opdata:
