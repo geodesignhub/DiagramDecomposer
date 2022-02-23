@@ -1,7 +1,7 @@
 {
-    "name": "A plugin to split diagrams ",
+    "name": "A plugin to split diagrams",
     "description": "A barebones Geodesign Service app using Flask",
-    "repository": "https://github.com/hrishiballal/GDHDiagramSplitter",
+    "repository": "https://github.com/hrishiballal/DiagramDecomposer",
     "keywords": ["geodesign", "service", "flask", "impacts", "evaluaions"]
 
 }

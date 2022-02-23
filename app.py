@@ -1,21 +1,21 @@
-from flask import Flask, url_for
-from functools import wraps
+from flask import Flask
 from flask import request, Response
-from flask import render_template
-import requests, json, GeodesignHub
+import json, GeodesignHub
 import shapelyHelper
 import logging, config
 import math, json
-from shapely.ops import polygonize
-from shapely.geometry.base import BaseGeometry
-from shapely.geometry import shape, mapping, shape, asShape
-from shapely.geometry import Polygon, MultiPolygon, MultiLineString
+from shapely.geometry import shape, asShape
+from shapely.geometry import Polygon
 from shapely import speedups
 import shapelyHelper
 import random
 import os
 from rtree import Rtree
 
+from shapely.validation import explain_validity 
+if speedups.available:
+	speedups.enable()
+	
 
 class RTreeHelper():
 	'''This class has helper functions for the RTree Spatial Index. (https://pypi.python.org/pypi/Rtree/) '''

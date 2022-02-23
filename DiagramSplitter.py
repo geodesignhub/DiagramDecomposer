@@ -1,16 +1,17 @@
-import requests, json, GeodesignHub
+import json, GeodesignHub
 import shapelyHelper
 import logging, config
 import math, json
-from shapely.ops import polygonize
-from shapely.geometry.base import BaseGeometry
-from shapely.geometry import shape, mapping, shape, asShape
-from shapely.geometry import Polygon, MultiPolygon, MultiLineString
+from shapely.geometry import asShape
+from shapely.geometry import Polygon
 from shapely import speedups
+from shapely.validation import explain_validity 
 import shapelyHelper
 import random
 from rtree import Rtree
-
+if speedups.available:
+	speedups.enable()
+	
 class RTreeHelper():
 	'''This class has helper functions for the RTree Spatial Index. (https://pypi.python.org/pypi/Rtree/) '''
 	def getNearestBounds(self, rtree, inputbounds,):
